@@ -15,21 +15,22 @@ public class SocketHandler extends Handler {
         _mainContext = mainContext;
     }
 
+    // for debug
     @Override
     public void handleMessage(Message msg) {
-        switch (msg.what) {
-            case Client.SEND_CODE:
-                Toast.makeText(_mainContext, SEND_SUCCESSFUL, Toast.LENGTH_SHORT).show();
-                break;
-            case Client.RCV_CODE:
-                Toast.makeText(_mainContext, msg.obj.toString(), Toast.LENGTH_SHORT).show();
-                break;
-            case Client.CONNECT_CODE:
-                Toast.makeText(_mainContext, msg.obj + CONNECT_SUCCESS_MSG, Toast.LENGTH_SHORT).show();
-                break;
-            default:
-                break;
-        }
-        super.handleMessage(msg);
+//        switch (msg.what) {
+//            case Client.SEND_CODE:
+//                Toast.makeText(_mainContext, SEND_SUCCESSFUL, Toast.LENGTH_SHORT).show();
+//                break;
+//            case Client.RCV_CODE:
+//                Toast.makeText(_mainContext, msg.obj.toString(), Toast.LENGTH_SHORT).show();
+//                break;
+//            case Client.CONNECT_CODE:
+//                Toast.makeText(_mainContext, msg.obj + CONNECT_SUCCESS_MSG, Toast.LENGTH_SHORT).show();
+//                break;
+//            default:
+//                break;
+//        }
+//        super.handleMessage(msg);
     }
 }

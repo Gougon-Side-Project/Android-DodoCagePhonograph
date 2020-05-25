@@ -63,10 +63,10 @@ public class MainPM implements Observable, Observer {
     private void SetTargetTime(int rnd) {
         switch (rnd) {
             case 0:
-                _targetTime = 32;
+                _targetTime = 31;
                 break;
             case 1:
-                _targetTime = 29;
+                _targetTime = 21;
                 break;
             case 2:
                 _targetTime = 64;

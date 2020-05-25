@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
+import android.app.admin.DevicePolicyManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -35,18 +36,20 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        _textImageView = findViewById(R.id.waitAnswerText);
-        _textImageView.setImageResource(R.drawable.wait_answer_text_animation_list);
-        _buttonImageView = findViewById(R.id.buttonAnimation);
-        _buttonImageView.setImageResource(R.drawable.btn001);
-        AnimationDrawable textAnimationDrawable = (AnimationDrawable) _textImageView.getDrawable();
-        textAnimationDrawable.start();
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        _textImageView = findViewById(R.id.waitAnswerText);
+        _textImageView.setImageResource(R.drawable.wait_answer_text_animation_list);
+        _buttonImageView = findViewById(R.id.buttonAnimation);
+        _buttonImageView.setImageResource(R.drawable.btn001);
+        AnimationDrawable textAnimationDrawable = (AnimationDrawable) _textImageView.getDrawable();
+        textAnimationDrawable.start();
 
         _pm = new MainPM(this);
         Subscribe(_pm);
@@ -70,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     public void ClickAnswerButton(View view) {
         int rnd = new Random().nextInt(3);
-        Toast.makeText(this, "touch", Toast.LENGTH_SHORT).show();
         _pm.ClickAnswerButton(rnd);
         ChangeBackground(rnd);
     }
@@ -122,9 +124,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void Update() {
-        DeleteUI(findViewById(R.id.waitAnswerText));
-        GifImageView background = findViewById(R.id.waitAnswerBackground);
         Drawable drawable = getDrawable(R.drawable.black);
+        _textImageView.setImageDrawable(drawable);
+        // DeleteUI(findViewById(R.id.waitAnswerText));
+        GifImageView background = findViewById(R.id.waitAnswerBackground);
         background.setImageDrawable(drawable);
         Send(RESPONSE_ANSWER);
     }

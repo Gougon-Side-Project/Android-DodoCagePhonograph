@@ -19,7 +19,7 @@ public class Client extends Thread implements Observable {
     private final String ASK_NAME = "%NAME";
     private final String RESPONSE_NAME = "&NAME";
 
-    private final String IP = "10.120.4.42";
+    private final String IP = "192.168.42.243";
     private final Integer PORT = 6321;
 
     private Socket _socket;
