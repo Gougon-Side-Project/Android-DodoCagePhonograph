@@ -1,7 +1,7 @@
 package com.example.dodocagephonograph;
 
-public interface Observer {
-    void Subscribe(Observable news);
+public interface IObserver {
+    void Subscribe(ISubject news);
     void Unsubscribe();
     void Update();
 }

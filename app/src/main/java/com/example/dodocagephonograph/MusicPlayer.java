@@ -6,12 +6,12 @@ import android.media.MediaPlayer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 
-public class MusicPlayer implements Observer {
+public class MusicPlayer implements IObserver {
     private MediaPlayer _mediaPlayer = null;
 
     Vibrator _vibrator = null;
 
-    private Observable _news = null;
+    private ISubject _news = null;
 
     private Context _context;
 
@@ -45,7 +45,7 @@ public class MusicPlayer implements Observer {
     }
 
     @Override
-    public void Subscribe(Observable news) {
+    public void Subscribe(ISubject news) {
         _news = news;
         _news.Register(this);
     }

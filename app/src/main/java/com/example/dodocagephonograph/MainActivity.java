@@ -5,26 +5,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
-import android.app.admin.DevicePolicyManager;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.provider.MediaStore;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements Observer {
+public class MainActivity extends AppCompatActivity implements IObserver {
     private final String NOT_CONNECTED_MSG = "You are not connected";
     private final String RESPONSE_ANSWER = "&Answer";
 
@@ -32,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private ImageView _buttonImageView;
 
     private MainPM _pm;
-    private Observable _news;
+    private ISubject _news;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -112,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     @Override
-    public void Subscribe(Observable news) {
+    public void Subscribe(ISubject news) {
         _news = news;
         _news.Register(this);
     }

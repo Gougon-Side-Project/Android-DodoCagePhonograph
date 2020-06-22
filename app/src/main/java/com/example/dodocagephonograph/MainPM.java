@@ -3,11 +3,11 @@ package com.example.dodocagephonograph;
 import android.content.Context;
 import android.media.MediaPlayer;
 
-public class MainPM implements Observable, Observer {
+public class MainPM implements ISubject, IObserver {
     private Context _mainContext;
 
-    private Observer _reader;
-    private Observable _news;
+    private IObserver _reader;
+    private ISubject _news;
 
     private Client _client;
     private MusicPlayer _musicPlayer;
@@ -99,12 +99,12 @@ public class MainPM implements Observable, Observer {
     }
 
     @Override
-    public void Register(Observer reader) {
+    public void Register(IObserver reader) {
         _reader = reader;
     }
 
     @Override
-    public void Unregister(Observer reader) {
+    public void Unregister(IObserver reader) {
         _reader = null;
     }
 
@@ -114,7 +114,7 @@ public class MainPM implements Observable, Observer {
     }
 
     @Override
-    public void Subscribe(Observable news) {
+    public void Subscribe(ISubject news) {
         _news = news;
         _news.Register(this);
     }

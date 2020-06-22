@@ -1,7 +1,7 @@
 package com.example.dodocagephonograph;
 
-public class TimeRunnable implements Runnable, Observable {
-    private Observer _reader;
+public class TimeRunnable implements Runnable, ISubject {
+    private IObserver _reader;
     private TimeHandler _handler;
     private int _time;
     private int _targetTime;
@@ -22,12 +22,12 @@ public class TimeRunnable implements Runnable, Observable {
     }
 
     @Override
-    public void Register(Observer reader) {
+    public void Register(IObserver reader) {
         _reader = reader;
     }
 
     @Override
-    public void Unregister(Observer reader) {
+    public void Unregister(IObserver reader) {
         _reader = null;
     }
 

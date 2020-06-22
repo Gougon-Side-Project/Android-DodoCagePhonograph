@@ -2,11 +2,11 @@ package com.example.dodocagephonograph;
 
 import android.os.Handler;
 
-public class TimeHandler extends Handler implements Observable, Observer {
+public class TimeHandler extends Handler implements ISubject, IObserver {
     private final String NULL_RUNNABLE_EXCEPTION = "Null runnable in TimeHandler\n";
 
-    private Observer _reader;
-    private Observable _news;
+    private IObserver _reader;
+    private ISubject _news;
 
     private final long INTERVAL = 1000;
     private TimeRunnable _runnable;
@@ -24,12 +24,12 @@ public class TimeHandler extends Handler implements Observable, Observer {
     }
 
     @Override
-    public void Register(Observer reader) {
+    public void Register(IObserver reader) {
         _reader = reader;
     }
 
     @Override
-    public void Unregister(Observer reader) {
+    public void Unregister(IObserver reader) {
         _reader = null;
     }
 
@@ -39,7 +39,7 @@ public class TimeHandler extends Handler implements Observable, Observer {
     }
 
     @Override
-    public void Subscribe(Observable news) {
+    public void Subscribe(ISubject news) {
         _news = news;
         _news.Register(this);
     }

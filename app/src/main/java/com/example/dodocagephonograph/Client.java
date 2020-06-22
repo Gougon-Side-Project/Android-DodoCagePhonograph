@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public class Client extends Thread implements Observable {
+public class Client extends Thread implements ISubject {
 
     public static final int SEND_CODE = 0;
     public static final int RCV_CODE = 1;
@@ -30,7 +30,7 @@ public class Client extends Thread implements Observable {
 
     private boolean _isConnect;
 
-    private Observer _reader;
+    private IObserver _reader;
 
     public Client(Handler handler) {
         _handler = handler;
@@ -88,12 +88,12 @@ public class Client extends Thread implements Observable {
     }
 
     @Override
-    public void Register(Observer reader) {
+    public void Register(IObserver reader) {
         _reader = reader;
     }
 
     @Override
-    public void Unregister(Observer reader) {
+    public void Unregister(IObserver reader) {
         _reader = null;
     }
 
