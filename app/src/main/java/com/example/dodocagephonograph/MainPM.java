@@ -17,17 +17,26 @@ public class MainPM implements Observable, Observer {
 
     private int _targetTime;
 
+    private State _state;
+
     public MainPM(Context mainContext) {
         _mainContext = mainContext;
         _musicPlayer = new MusicPlayer(_mainContext);
         _socketHandler = new SocketHandler(_mainContext);
         _targetTime = 0;
+        _state = State.Ready;
+    }
+
+    public State GetState() {
+        return _state;
     }
 
     public void Connect() {
         _client = new Client(_socketHandler);
         _client.start();
         _musicPlayer.Subscribe(_client);
+        // Subscribe(_client);
+        _state = State.Connect;
     }
 
     public boolean IsConnected() {
@@ -35,6 +44,7 @@ public class MainPM implements Observable, Observer {
     }
 
     public void ClickAnswerButton(int rnd) {
+        _musicPlayer.Unsubscribe();
         _musicPlayer.Stop();
         StartRandomPhonograph(rnd);
         SetTargetTime(rnd);
@@ -58,6 +68,7 @@ public class MainPM implements Observable, Observer {
                 throw new RuntimeException("Random number is not belong (0~2)\n");
         }
         _phonographPlayer.start();
+        _state = State.Phonograph;
     }
 
     private void SetTargetTime(int rnd) {
@@ -66,7 +77,7 @@ public class MainPM implements Observable, Observer {
                 _targetTime = 31;
                 break;
             case 1:
-                _targetTime = 21;
+                _targetTime = 19;
                 break;
             case 2:
                 _targetTime = 64;
@@ -115,8 +126,22 @@ public class MainPM implements Observable, Observer {
 
     @Override
     public void Update() {
-        _phonographPlayer.stop();
+        if (_state == State.Phonograph) {
+            _phonographPlayer.stop();
+        }
+
         if (_reader != null)
             Inform();
+
+        if (_state == State.Phonograph) {
+            Unsubscribe();
+            Subscribe(_client);
+            _state = State.Exit;
+        }
+        else if (_state == State.Exit) {
+            Unsubscribe();
+            _musicPlayer.Subscribe(_client);
+            _state = State.Connect;
+        }
     }
 }

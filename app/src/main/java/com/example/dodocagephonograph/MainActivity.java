@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     }
 
     private void ChangeBackground(int rnd) {
-        DeleteUI(findViewById(R.id.buttonClickArea));
+        // DeleteUI(findViewById(R.id.buttonClickArea));
         _buttonImageView.setImageResource(R.drawable.button_animation_list);
         AnimationDrawable buttonAnimationDrawable = (AnimationDrawable) _buttonImageView.getDrawable();
         buttonAnimationDrawable.start();
@@ -124,11 +124,31 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void Update() {
-        Drawable drawable = getDrawable(R.drawable.black);
-        _textImageView.setImageDrawable(drawable);
-        // DeleteUI(findViewById(R.id.waitAnswerText));
-        GifImageView background = findViewById(R.id.waitAnswerBackground);
-        background.setImageDrawable(drawable);
-        Send(RESPONSE_ANSWER);
+        if (_pm.GetState() == State.Exit) {
+            _textImageView.setImageResource(R.drawable.wait_answer_text_animation_list);
+            GifImageView background = findViewById(R.id.waitAnswerBackground);
+            try {
+                background.setImageDrawable(new GifDrawable(getResources(), R.drawable.wait_answer_background));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            _buttonImageView = findViewById(R.id.buttonAnimation);
+            _buttonImageView.setImageResource(R.drawable.btn001);
+            AnimationDrawable textAnimationDrawable = (AnimationDrawable) _textImageView.getDrawable();
+            textAnimationDrawable.start();
+        }
+        else if (_pm.GetState() == State.Phonograph) {
+            _textImageView.setImageResource(R.drawable.black_list);
+            // DeleteUI(findViewById(R.id.waitAnswerText));
+//            GifImageView background = findViewById(R.id.waitAnswerBackground);
+//            try {
+//                background.setImageDrawable(new GifDrawable(getResources(), R.drawable.black));
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            Send(RESPONSE_ANSWER);
+        }
     }
 }

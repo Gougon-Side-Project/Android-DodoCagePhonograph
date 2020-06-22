@@ -19,7 +19,7 @@ public class Client extends Thread implements Observable {
     private final String ASK_NAME = "%NAME";
     private final String RESPONSE_NAME = "&NAME";
 
-    private final String IP = "192.168.42.243";
+    private final String IP = "10.120.2.100";
     private final Integer PORT = 6321;
 
     private Socket _socket;
@@ -55,7 +55,7 @@ public class Client extends Thread implements Observable {
                         _bw.write(RESPONSE_NAME + "|dncoffee" + "\n");
                         _bw.flush();
                     }
-                    else if (rcvMsg.contains("%Ring")) {
+                    else if (rcvMsg.contains("%Ring") || rcvMsg.contains("%Repeat")) {
                         Inform();
                     }
                     else {

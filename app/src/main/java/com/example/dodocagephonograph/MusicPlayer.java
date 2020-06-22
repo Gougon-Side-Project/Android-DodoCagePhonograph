@@ -26,9 +26,11 @@ public class MusicPlayer implements Observer {
     }
 
     public void Play() {
-        if (_mediaPlayer != null && _mediaPlayer.isPlaying())
-            return;
+//        if (_mediaPlayer != null && _mediaPlayer.isPlaying())
+//            return;
+        _mediaPlayer = null;
         _mediaPlayer = MediaPlayer.create(_context, R.raw.ringbell);
+        _mediaPlayer.setLooping(true);
         _mediaPlayer.start();
         Vibrating();
     }
