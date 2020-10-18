@@ -68,7 +68,7 @@ public class MainPM implements ISubject, IObserver {
                 throw new RuntimeException("Random number is not belong (0~2)\n");
         }
         _phonographPlayer.start();
-        _state = State.Phonograph;
+        Inform();
     }
 
     private void SetTargetTime(int rnd) {
@@ -126,14 +126,17 @@ public class MainPM implements ISubject, IObserver {
 
     @Override
     public void Update() {
-        if (_state == State.Phonograph) {
-            _phonographPlayer.stop();
-        }
-
         if (_reader != null)
             Inform();
 
-        if (_state == State.Phonograph) {
+        if (_state == State.Connect) {
+            _state = State.StartPhonograph;
+        }
+        else if (_state == State.StartPhonograph) {
+            _state = State.EndPhonograph;
+        }
+        else if (_state == State.EndPhonograph) {
+            _phonographPlayer.stop();
             Unsubscribe();
             Subscribe(_client);
             _state = State.Exit;

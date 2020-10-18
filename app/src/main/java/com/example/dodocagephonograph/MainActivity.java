@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
             AnimationDrawable textAnimationDrawable = (AnimationDrawable) _textImageView.getDrawable();
             textAnimationDrawable.start();
         }
-        else if (_pm.GetState() == State.Phonograph) {
+        else if (_pm.GetState() == State.EndPhonograph) {
             _textImageView.setImageResource(R.drawable.black_list);
             // DeleteUI(findViewById(R.id.waitAnswerText));
 //            GifImageView background = findViewById(R.id.waitAnswerBackground);
