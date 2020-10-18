@@ -72,19 +72,20 @@ public class MainPM implements ISubject, IObserver {
     }
 
     private void SetTargetTime(int rnd) {
-        switch (rnd) {
-            case 0:
-                _targetTime = 31;
-                break;
-            case 1:
-                _targetTime = 19;
-                break;
-            case 2:
-                _targetTime = 64;
-                break;
-            default:
-                throw new RuntimeException("Random number is not belong (0~2)\n");
-        }
+        // switch (rnd) {
+        //     case 0:
+        //         _targetTime = 31;
+        //         break;
+        //     case 1:
+        //         _targetTime = 19;
+        //         break;
+        //     case 2:
+        //         _targetTime = 64;
+        //         break;
+        //     default:
+        //         throw new RuntimeException("Random number is not belong (0~2)\n");
+        // }
+        _targetTime = 105;
     }
 
     public void Send(String sendMsg) {
