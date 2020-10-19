@@ -5,6 +5,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 
 public class MusicPlayer implements IObserver {
     private MediaPlayer _mediaPlayer = null;
@@ -26,8 +27,6 @@ public class MusicPlayer implements IObserver {
     }
 
     public void Play() {
-//        if (_mediaPlayer != null && _mediaPlayer.isPlaying())
-//            return;
         _mediaPlayer = null;
         _mediaPlayer = MediaPlayer.create(_context, R.raw.ringbell);
         _mediaPlayer.setLooping(true);

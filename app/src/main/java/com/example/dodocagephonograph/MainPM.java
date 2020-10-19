@@ -2,6 +2,9 @@ package com.example.dodocagephonograph;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Debug;
+import android.util.Log;
+import android.widget.Toast;
 
 public class MainPM implements ISubject, IObserver {
     private Context _mainContext;
@@ -35,7 +38,6 @@ public class MainPM implements ISubject, IObserver {
         _client = new Client(_socketHandler);
         _client.start();
         _musicPlayer.Subscribe(_client);
-        // Subscribe(_client);
         _state = State.Connect;
     }
 
@@ -51,40 +53,16 @@ public class MainPM implements ISubject, IObserver {
         _timeHandler = new TimeHandler(_targetTime);
         Subscribe(_timeHandler);
         _timeHandler.Tick();
+        Update();
     }
 
     private void StartRandomPhonograph(int rnd) {
-        switch (rnd) {
-            case 0:
-                _phonographPlayer = MediaPlayer.create(_mainContext, R.raw.record1);
-                break;
-            case 1:
-                _phonographPlayer = MediaPlayer.create(_mainContext, R.raw.record2);
-                break;
-            case 2:
-                _phonographPlayer = MediaPlayer.create(_mainContext, R.raw.record3);
-                break;
-            default:
-                throw new RuntimeException("Random number is not belong (0~2)\n");
-        }
+        _phonographPlayer = MediaPlayer.create(_mainContext, R.raw.complexrecord);
         _phonographPlayer.start();
         Inform();
     }
 
     private void SetTargetTime(int rnd) {
-        // switch (rnd) {
-        //     case 0:
-        //         _targetTime = 31;
-        //         break;
-        //     case 1:
-        //         _targetTime = 19;
-        //         break;
-        //     case 2:
-        //         _targetTime = 64;
-        //         break;
-        //     default:
-        //         throw new RuntimeException("Random number is not belong (0~2)\n");
-        // }
         _targetTime = 105;
     }
 
@@ -127,25 +105,23 @@ public class MainPM implements ISubject, IObserver {
 
     @Override
     public void Update() {
-        if (_reader != null)
-            Inform();
-
         if (_state == State.Connect) {
             _state = State.StartPhonograph;
         }
         else if (_state == State.StartPhonograph) {
             _state = State.EndPhonograph;
-        }
-        else if (_state == State.EndPhonograph) {
             _phonographPlayer.stop();
             Unsubscribe();
             Subscribe(_client);
-            _state = State.Exit;
         }
-        else if (_state == State.Exit) {
+        else if (_state == State.EndPhonograph) {
+            _state = State.Exit;
             Unsubscribe();
             _musicPlayer.Subscribe(_client);
             _state = State.Connect;
         }
+
+        if (_reader != null)
+            Inform();
     }
 }

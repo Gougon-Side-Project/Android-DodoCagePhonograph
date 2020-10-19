@@ -7,6 +7,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
     @Override
     public void Update() {
-        if (_pm.GetState() == State.Exit) {
+        if (_pm.GetState() == State.Connect) {
             _textImageView.setImageResource(R.drawable.wait_answer_text_animation_list);
             GifImageView background = findViewById(R.id.waitAnswerBackground);
             try {
@@ -130,14 +131,6 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         }
         else if (_pm.GetState() == State.EndPhonograph) {
             _textImageView.setImageResource(R.drawable.black_list);
-            // DeleteUI(findViewById(R.id.waitAnswerText));
-//            GifImageView background = findViewById(R.id.waitAnswerBackground);
-//            try {
-//                background.setImageDrawable(new GifDrawable(getResources(), R.drawable.black));
-//            }
-//            catch (IOException e) {
-//                e.printStackTrace();
-//            }
             Send(RESPONSE_ANSWER);
         }
     }
