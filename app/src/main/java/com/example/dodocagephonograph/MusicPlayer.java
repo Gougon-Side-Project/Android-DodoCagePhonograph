@@ -5,14 +5,13 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.Log;
 
-public class MusicPlayer implements IObserver {
+public class MusicPlayer implements Observer {
     private MediaPlayer _mediaPlayer = null;
 
     Vibrator _vibrator = null;
 
-    private ISubject _news = null;
+    private Observable _news = null;
 
     private Context _context;
 
@@ -27,9 +26,9 @@ public class MusicPlayer implements IObserver {
     }
 
     public void Play() {
-        _mediaPlayer = null;
+        if (_mediaPlayer != null && _mediaPlayer.isPlaying())
+            return;
         _mediaPlayer = MediaPlayer.create(_context, R.raw.ringbell);
-        _mediaPlayer.setLooping(true);
         _mediaPlayer.start();
         Vibrating();
     }
@@ -44,7 +43,7 @@ public class MusicPlayer implements IObserver {
     }
 
     @Override
-    public void Subscribe(ISubject news) {
+    public void Subscribe(Observable news) {
         _news = news;
         _news.Register(this);
     }

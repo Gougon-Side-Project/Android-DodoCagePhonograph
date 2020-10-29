@@ -15,7 +15,6 @@ public class SocketHandler extends Handler {
         _mainContext = mainContext;
     }
 
-    // for debug
     @Override
     public void handleMessage(Message msg) {
         switch (msg.what) {
