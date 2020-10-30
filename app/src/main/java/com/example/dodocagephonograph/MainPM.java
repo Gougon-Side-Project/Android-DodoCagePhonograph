@@ -57,13 +57,13 @@ public class MainPM implements ISubject, IObserver {
     }
 
     private void StartRandomPhonograph(int rnd) {
-        _phonographPlayer = MediaPlayer.create(_mainContext, R.raw.complexrecord);
+        _phonographPlayer = MediaPlayer.create(_mainContext, R.raw.mix);
         _phonographPlayer.start();
         Inform();
     }
 
     private void SetTargetTime(int rnd) {
-        _targetTime = 105;
+        _targetTime = 89;
     }
 
     public void Send(String sendMsg) {

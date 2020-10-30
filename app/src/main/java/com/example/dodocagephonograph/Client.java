@@ -19,7 +19,7 @@ public class Client extends Thread implements ISubject {
     private final String ASK_NAME = "%NAME";
     private final String RESPONSE_NAME = "&NAME";
 
-    private final String IP = "192.168.42.171";
+    private final String IP = "172.20.10.12";
     private final Integer PORT = 6321;
 
     private Socket _socket;

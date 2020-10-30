@@ -18,6 +18,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements IObserver {
     private final String NOT_CONNECTED_MSG = "You are not connected";
     private final String RESPONSE_ANSWER = "&Answer";
+    private final String PICK_UP_PHONE = "&Pickup";
 
     private ImageView _textImageView;
     private ImageView _buttonImageView;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         GifImageView background = findViewById(R.id.waitAnswerBackground);
         GifDrawable gifDrawable;
         try {
+            /*
             switch(rnd) {
                 case 0:
                     gifDrawable = new GifDrawable(getResources(), R.drawable.answer1);
@@ -90,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements IObserver {
                     break;
                 default:
                     throw new RuntimeException("Random number is not belong (0~2)\n");
-            }
+            }*/
+            gifDrawable = new GifDrawable(getResources(), R.drawable.finalanswer);
             background.setImageDrawable(gifDrawable);
         } catch (IOException e) {
             e.printStackTrace();
@@ -129,9 +132,11 @@ public class MainActivity extends AppCompatActivity implements IObserver {
             AnimationDrawable textAnimationDrawable = (AnimationDrawable) _textImageView.getDrawable();
             textAnimationDrawable.start();
         }
+        else if(_pm.GetState() == State.StartPhonograph){
+            Send(PICK_UP_PHONE);
+        }
         else if (_pm.GetState() == State.EndPhonograph) {
             _textImageView.setImageResource(R.drawable.black_list);
-            Send(RESPONSE_ANSWER);
         }
     }
 }
