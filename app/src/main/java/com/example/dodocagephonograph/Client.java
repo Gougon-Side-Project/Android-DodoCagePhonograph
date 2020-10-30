@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 
-public class Client extends Thread implements ISubject {
+public class Client extends Thread implements Observable {
 
     public static final int SEND_CODE = 0;
     public static final int RCV_CODE = 1;
@@ -30,7 +30,7 @@ public class Client extends Thread implements ISubject {
 
     private boolean _isConnect;
 
-    private IObserver _reader;
+    private Observer _reader;
 
     public Client(Handler handler) {
         _handler = handler;
@@ -55,7 +55,7 @@ public class Client extends Thread implements ISubject {
                         _bw.write(RESPONSE_NAME + "|dncoffee" + "\n");
                         _bw.flush();
                     }
-                    else if (rcvMsg.contains("%Ring") || rcvMsg.contains("%Repeat")) {
+                    else if (rcvMsg.contains("%Ring")) {
                         Inform();
                     }
                     else {
@@ -88,12 +88,12 @@ public class Client extends Thread implements ISubject {
     }
 
     @Override
-    public void Register(IObserver reader) {
+    public void Register(Observer reader) {
         _reader = reader;
     }
 
     @Override
-    public void Unregister(IObserver reader) {
+    public void Unregister(Observer reader) {
         _reader = null;
     }
 
